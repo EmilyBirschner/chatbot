@@ -1,13 +1,13 @@
-const express = require('express'); // Importa o Express
-const path = require('path'); // Importa o módulo path para lidar com caminhos
+const express = require('express');
+const path = require('path');
 
-const app = express(); // Inicializa o app Express
-const PORT = process.env.PORT || 3000; // Define a porta (usando a variável de ambiente ou 3000)
+const app = express();
+const PORT = process.env.PORT || 3000; // Use a porta fornecida pelo servidor
 
 // Servir arquivos estáticos da pasta 'public'
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Rota principal para servir o HTML inicial
+// Rota principal
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'chatbot.html'));
 });
@@ -61,10 +61,4 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('Usuário desconectado.');
     });
-});
-
-// Configuração da porta do servidor
-
-server.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
 });
