@@ -1,13 +1,13 @@
-const express = require('express');
-const path = require('path');
+const express = require('express'); // Importa o Express
+const path = require('path'); // Importa o módulo 'path'
 
 const app = express();
-const PORT = process.env.PORT || 3000; // Usa a porta fornecida pela KingHost
+const PORT = process.env.PORT || 3000; // Usa a porta fornecida pela KingHost ou 3000
 
 // Servir arquivos estáticos da pasta 'public'
-app.use(express.static(path.join(__dirname, ['public'])));
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Rota principal
+// Rota principal para servir o HTML inicial
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'chatbot.html'));
 });
