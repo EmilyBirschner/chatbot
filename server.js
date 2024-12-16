@@ -1,11 +1,22 @@
-const express = require('express');
-const http = require('http');
-const { Server } = require('socket.io');
+const express = require('express'); // Importa o Express
+const path = require('path'); // Importa o módulo path para lidar com caminhos
 
-// Configuração do servidor
-const app = express();
-const server = http.createServer(app);
-const io = new Server(server);
+const app = express(); // Inicializa o app Express
+const PORT = process.env.PORT || 3000; // Define a porta (usando a variável de ambiente ou 3000)
+
+// Servir arquivos estáticos da pasta 'public'
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Rota principal para servir o HTML inicial
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'chatbot.html'));
+});
+
+// Inicializa o servidor
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
+
 
 // Servir arquivos estáticos
 app.use(express.static('public'));
@@ -53,7 +64,7 @@ io.on('connection', (socket) => {
 });
 
 // Configuração da porta do servidor
-const PORT = process.env.PORT || 3000;
+
 server.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
